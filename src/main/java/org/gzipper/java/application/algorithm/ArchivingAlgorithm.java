@@ -108,9 +108,7 @@ public abstract class ArchivingAlgorithm extends AbstractAlgorithm {
             while (!interrupt && entry != null) {
                 final String entryName = entry.getName();
                 if (filterPredicate.test(entryName)) { // check predicate first
-                    final String uniqueName = FileUtils.generateUniqueFilename(
-                            outputFolder.getAbsolutePath(), entryName);
-                    final File newFile = new File(uniqueName);
+                    final File newFile = new File(outputFolder.getAbsolutePath() + File.separator + entryName);
                     // check if entry contains a directory
                     if (entryName.indexOf('/') > -1) {
                         if (!newFile.getParentFile().exists()) {
