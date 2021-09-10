@@ -177,11 +177,11 @@ public abstract class ArchivingAlgorithm extends AbstractAlgorithm {
                 // create next file and define entry name based on folder level
                 final File newFile = files[i];
                 final String entryName = base + newFile.getName();
+                // check predicate first
+                if (!filterPredicate.test(newFile.getName())) {
+                    continue; // skip entry
+                }
                 if (newFile.isFile()) {
-                    // check predicate first
-                    if (!filterPredicate.test(newFile.getName())) {
-                        continue; // skip entry
-                    }
                     // read and compress the file
                     try (BufferedInputStream buf = new BufferedInputStream(new FileInputStream(newFile))) {
                         // create next archive entry and put it on output stream
